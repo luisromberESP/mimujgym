@@ -1,0 +1,1078 @@
+<title>Recomposición 12 semanas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+/* Layout: cuaderno de entrenamiento en oscuro. Barra fija con pestañas + fichas regladas en una columna de 760px. */
+:root{
+  --bg:#101114;          /* carbón, ligera deriva cálida hacia el acento */
+  --surface:#181A1E;
+  --surface-2:#212429;
+  --raise:#2A2E34;       /* cantos superiores de las fichas */
+  --ink:#F0EDE7;
+  --muted:#8C9299;
+  --line:#2B2F35;
+  --accent:#F2714A;
+  --accent-soft:#38211A;
+  --steel:#7FA8C2;
+  --ok:#72B88A;
+  color-scheme:dark;
+
+  --display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  --data:'IBM Plex Mono','SFMono-Regular',Consolas,monospace;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:var(--body); font-size:15px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:760px; margin:0 auto; padding-inline:18px; padding-block:0 56px}
+
+/* ---- cabecera ---- */
+.top{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
+  background:var(--bg); border-bottom:1px solid var(--line);
+  box-shadow:0 10px 24px -18px #000;
+}
+.top-in{max-width:760px; margin:0 auto; padding:14px 18px 0}
+.brand{display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap}
+h1{
+  font-family:var(--display); font-weight:700; font-size:clamp(20px,4.6vw,27px);
+  letter-spacing:-.02em; margin:0; text-wrap:balance;
+}
+.who{font-family:var(--data); font-size:11.5px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+
+nav{display:flex; gap:2px; margin-top:12px; overflow-x:auto; scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  flex:0 0 auto; appearance:none; border:0; background:none; cursor:pointer;
+  font-family:var(--display); font-size:12.5px; font-weight:600; letter-spacing:.04em;
+  text-transform:uppercase; color:var(--muted);
+  padding:9px 12px; border-bottom:2px solid transparent; white-space:nowrap;
+}
+nav button:hover{color:var(--ink)}
+nav button[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--accent)}
+nav button:focus-visible{outline:2px solid var(--accent); outline-offset:-2px; border-radius:3px}
+
+/* ---- bloques ---- */
+section{padding-top:26px}
+h2{font-family:var(--display); font-weight:700; font-size:19px; letter-spacing:-.01em; margin:0 0 4px; text-wrap:balance}
+h3{font-family:var(--display); font-weight:600; font-size:15px; margin:26px 0 10px; letter-spacing:.01em}
+.lead{color:var(--muted); margin:0 0 18px; max-width:62ch}
+p{margin:0 0 12px; max-width:64ch}
+.eyebrow{font-family:var(--data); font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 6px}
+
+.now{background:var(--accent-soft); border-left:3px solid var(--accent); padding:13px 15px; margin-bottom:22px}
+.now p{margin:0; font-size:14px; max-width:60ch}
+.now strong{font-weight:600}
+
+/* ---- fichas de sesión ---- */
+.card{
+  background:var(--surface); border:1px solid var(--line);
+  border-top-color:var(--raise); margin-bottom:14px;
+}
+.card-h{display:flex; align-items:center; gap:11px; padding:12px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap}
+.tag{
+  font-family:var(--display); font-weight:700; font-size:13px;
+  width:26px; height:26px; display:grid; place-items:center;
+  background:var(--accent); color:var(--bg); flex:0 0 auto;
+}
+.card-h h4{font-family:var(--display); font-weight:600; font-size:15px; margin:0; flex:1 1 auto; min-width:0}
+.card-h .when{font-family:var(--data); font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em}
+.dur{
+  font-family:var(--data); font-size:10.5px; letter-spacing:.05em; text-transform:uppercase;
+  border:1px solid var(--line); padding:2px 7px; color:var(--muted); white-space:nowrap;
+}
+.col-h{
+  display:grid; grid-template-columns:1fr 62px 58px; gap:10px; padding:6px 14px;
+  background:var(--surface-2); border-bottom:1px solid var(--line);
+  font-family:var(--data); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+}
+.col-h span:nth-child(2),.col-h span:nth-child(3){text-align:center}
+.ex{
+  display:grid; grid-template-columns:1fr 62px 58px; gap:10px; align-items:center;
+  padding:9px 14px; border-bottom:1px solid var(--line);
+}
+.ex:last-child{border-bottom:0}
+.ex .name{min-width:0; font-size:14px}
+.ex .name em{font-style:normal; color:var(--muted); font-size:12.5px; display:block; line-height:1.35}
+.ex .sets{
+  font-family:var(--data); font-size:14px; font-weight:600; text-align:center;
+  font-variant-numeric:tabular-nums; white-space:nowrap;
+}
+.ex .rir{font-family:var(--data); font-size:10px; color:var(--muted); text-align:center; line-height:1.3}
+.ex.ss{background:var(--surface-2)}
+.ex.ss .rir{color:var(--accent)}
+
+/* ---- progresión ---- */
+.block-h{display:flex; align-items:baseline; gap:10px; margin:24px 0 8px; flex-wrap:wrap}
+.block-h .num{
+  font-family:var(--display); font-weight:700; font-size:11px; letter-spacing:.1em;
+  background:var(--steel); color:var(--surface); padding:2px 7px;
+}
+.block-h h3{margin:0}
+.block-h .range{font-family:var(--data); font-size:11px; color:var(--muted)}
+.wk{display:grid; grid-template-columns:54px 1fr; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); align-items:start}
+.wk .lbl{font-family:var(--data); font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums}
+.wk .lbl b{display:block; color:var(--ink); font-size:13px; font-weight:600}
+.wk .txt{font-size:14px; min-width:0}
+.wk.deload{background:var(--surface-2); padding-inline:10px; border-bottom:0; margin-block:2px}
+.wk.deload .txt strong{color:var(--accent); font-weight:600}
+.wk.current{box-shadow:inset 3px 0 0 var(--accent); padding-left:10px}
+
+ul.plain{margin:0 0 14px; padding-left:18px; max-width:62ch}
+ul.plain li{margin-bottom:5px}
+.note{font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:12px; margin-top:22px; max-width:64ch}
+
+/* ---- selector de días ---- */
+.wknav{display:flex; align-items:center; justify-content:space-between; gap:10px; border:1px solid var(--line); border-top-color:var(--raise); background:var(--surface); padding:8px 10px; margin-bottom:12px}
+.wknav button{
+  appearance:none; border:1px solid var(--line); background:var(--bg); color:var(--ink);
+  font-family:var(--display); font-size:15px; font-weight:700; line-height:1;
+  width:32px; height:32px; cursor:pointer; flex:0 0 auto;
+}
+.wknav button:disabled{opacity:.35; cursor:default}
+.wknav button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.wknav .mid{text-align:center; min-width:0; flex:1 1 auto}
+.wknav .mid b{font-family:var(--display); font-size:15px; display:block; letter-spacing:-.01em}
+.wknav .mid span{font-family:var(--data); font-size:11px; color:var(--muted); display:block}
+
+.picker{border:1px solid var(--line); border-top-color:var(--raise); background:var(--surface); padding:13px 13px 11px; margin-bottom:14px}
+.picker-h{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:9px; flex-wrap:wrap}
+.picker-h p{font-family:var(--data); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0}
+.count{font-family:var(--data); font-size:12px; font-weight:600; color:var(--accent)}
+.count.done{color:var(--ok)}
+.dayopts{display:grid; grid-template-columns:repeat(7,1fr); gap:4px}
+.opt{
+  appearance:none; cursor:pointer; min-width:0; padding:9px 2px 8px;
+  background:var(--bg); border:1px solid var(--line); color:var(--muted);
+  font-family:var(--data); font-size:11px; letter-spacing:.04em; text-transform:uppercase;
+  display:flex; flex-direction:column; align-items:center; gap:3px;
+}
+.opt .pick{font-family:var(--display); font-size:15px; font-weight:700; color:var(--raise)}
+.opt[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--bg)}
+.opt[aria-pressed="true"] .pick{color:var(--bg)}
+.opt:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+.picker-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; padding-top:9px; border-top:1px solid var(--line); flex-wrap:wrap}
+.picker-foot .rot{
+  appearance:none; border:1px solid var(--line); background:var(--bg); color:var(--ink);
+  font-family:var(--data); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+  padding:5px 9px; cursor:pointer;
+}
+.picker-foot .rot:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.picker-foot .hint{font-size:12px; color:var(--muted); flex:1 1 180px; min-width:0}
+
+.warn{background:var(--accent-soft); border-left:3px solid var(--accent); padding:10px 13px; margin-bottom:14px; font-size:13.5px}
+
+/* ---- registro ---- */
+.day-card{background:var(--surface); border:1px solid var(--line); border-top-color:var(--raise); margin-bottom:6px}
+.day-card.open{border-color:var(--raise)}
+.day-h{
+  display:grid; grid-template-columns:66px 26px 1fr auto; gap:11px; align-items:center;
+  width:100%; text-align:left; padding:11px 13px; cursor:pointer;
+  appearance:none; border:0; background:none; color:var(--ink); font-family:inherit; font-size:15px;
+}
+.day-h:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.day-h .pd{font-family:var(--data); font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.05em}
+.day-h .ps{font-family:var(--display); font-weight:700; font-size:13px; width:26px; height:26px; display:grid; place-items:center; background:var(--accent); color:var(--bg)}
+.day-h .pn{min-width:0; font-size:14px}
+.day-h .pn em{font-style:normal; color:var(--muted); font-size:12.5px; display:block; line-height:1.35}
+.day-h .meta{font-family:var(--data); font-size:10.5px; color:var(--muted); text-align:right; white-space:nowrap}
+.day-h .meta b{display:block; font-weight:600; color:var(--ok)}
+.day-h .chev{font-family:var(--data); color:var(--muted)}
+.day-card.open .day-h{border-bottom:1px solid var(--line)}
+
+.log{padding:4px 13px 12px}
+.log-ex{padding:11px 0; border-bottom:1px solid var(--line)}
+.log-ex:last-child{border-bottom:0}
+.log-top{display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap; margin-bottom:6px}
+.log-top .nm{font-size:13.5px; font-weight:500; min-width:0; flex:1 1 150px}
+.log-top .goal{font-family:var(--data); font-size:11.5px; font-weight:600; color:var(--accent); white-space:nowrap}
+.prev{font-family:var(--data); font-size:10.5px; color:var(--muted); margin:0 0 6px}
+.sets-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(74px,1fr)); gap:5px}
+.set-in{min-width:0}
+.set-in label{font-family:var(--data); font-size:9px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:2px}
+.set-in input{
+  width:100%; min-width:0; appearance:none;
+  background:#0B0C0E; border:1px solid var(--line); color:var(--ink);
+  font-family:var(--data); font-size:13px; padding:6px 7px;
+}
+.set-in input:focus{outline:2px solid var(--accent); outline-offset:-1px}
+.set-in input::placeholder{color:#434951}
+.log-foot{font-size:12px; color:var(--muted); padding-top:10px; border-top:1px solid var(--line); margin-top:4px}
+
+/* ---- gráficas ---- */
+.filters{display:flex; gap:4px; flex-wrap:wrap; margin:0 0 16px}
+.chip{
+  appearance:none; cursor:pointer; background:var(--surface); color:var(--muted);
+  border:1px solid var(--line); padding:6px 11px;
+  font-family:var(--data); font-size:11px; letter-spacing:.05em; text-transform:uppercase;
+}
+.chip[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--bg)}
+.chip:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+.charts{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:12px}
+.chart-card{
+  background:var(--surface); border:1px solid var(--line); border-top-color:var(--raise);
+  padding:13px 14px 11px; min-width:0;
+}
+.chart-h{display:flex; align-items:baseline; justify-content:space-between; gap:10px; margin-bottom:2px; flex-wrap:wrap}
+.chart-h .cn{font-size:13.5px; font-weight:500; min-width:0; flex:1 1 140px}
+.chart-h .cs{font-family:var(--data); font-size:10px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase}
+.chart-now{display:flex; align-items:baseline; gap:8px; margin-bottom:8px; flex-wrap:wrap}
+.chart-now .big{
+  font-family:var(--display); font-weight:700; font-size:24px; letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums; line-height:1.1;
+}
+.chart-now .u{font-family:var(--data); font-size:11px; color:var(--muted)}
+.delta{font-family:var(--data); font-size:11.5px; font-weight:600; font-variant-numeric:tabular-nums}
+.delta.up{color:var(--ok)}
+.delta.down{color:var(--accent)}
+.delta.flat{color:var(--muted)}
+.chart-card svg{display:block; width:100%; height:auto; max-width:100%; overflow:visible}
+.hit{cursor:pointer}
+.datarow{
+  display:flex; flex-wrap:wrap; gap:3px 10px; margin-top:9px; padding-top:9px;
+  border-top:1px solid var(--line);
+  font-family:var(--data); font-size:10.5px; color:var(--muted); font-variant-numeric:tabular-nums;
+}
+.datarow b{color:var(--ink); font-weight:600}
+#tip{
+  position:fixed; z-index:60; pointer-events:none; opacity:0; transition:opacity .1s;
+  background:var(--raise); color:var(--ink); border:1px solid var(--line);
+  font-family:var(--data); font-size:11px; padding:5px 8px; white-space:nowrap;
+  transform:translate(-50%,-130%);
+}
+#tip.on{opacity:1}
+
+/* ---- registros de seguimiento ---- */
+.track{background:var(--surface); border:1px solid var(--line); border-top-color:var(--raise); margin-bottom:14px}
+.track-h{
+  display:grid; grid-template-columns:52px 1fr 1fr 46px; gap:8px; padding:8px 13px;
+  background:var(--surface-2); border-bottom:1px solid var(--line);
+  font-family:var(--data); font-size:9.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted);
+}
+.track-r{
+  display:grid; grid-template-columns:52px 1fr 1fr 46px; gap:8px; align-items:center;
+  padding:6px 13px; border-bottom:1px solid var(--line);
+}
+.track-r:last-child{border-bottom:0}
+.track-r.deload{background:var(--surface-2)}
+.track-r.now{box-shadow:inset 3px 0 0 var(--accent)}
+.track-r .w{font-family:var(--data); font-size:11.5px; color:var(--muted); font-variant-numeric:tabular-nums}
+.track-r input[type=text]{
+  width:100%; min-width:0; appearance:none; background:#0B0C0E;
+  border:1px solid var(--line); color:var(--ink);
+  font-family:var(--data); font-size:13px; padding:5px 7px; text-align:center;
+}
+.track-r input[type=text]:focus{outline:2px solid var(--accent); outline-offset:-1px}
+.track-r input[type=text]::placeholder{color:#434951}
+.photo{display:grid; place-items:center}
+.photo input{width:17px; height:17px; accent-color:var(--accent); cursor:pointer; margin:0}
+.photo span{font-family:var(--data); font-size:10px; color:var(--raise)}
+
+.plan-empty{border:1px dashed var(--line); padding:18px 14px; text-align:center; color:var(--muted); font-size:13.5px; margin-bottom:5px}
+.pill{display:inline-block; font-family:var(--data); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; border:1px solid var(--line); padding:2px 7px; color:var(--muted)}
+
+@media (max-width:560px){
+  .opt{font-size:10px; padding:8px 1px 7px}
+  .opt .pick{font-size:14px}
+  .col-h,.ex{grid-template-columns:1fr 56px 48px; gap:7px}
+  .day-h{grid-template-columns:56px 24px 1fr auto; gap:8px; padding:11px 10px}
+  .log{padding-inline:10px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <div class="brand">
+      <h1>Recomposición 12 semanas</h1>
+      <span class="who">Luis · 85 kg · 1,83 m</span>
+    </div>
+    <nav role="tablist" aria-label="Secciones del plan">
+      <button role="tab" id="t-semana" aria-controls="p-semana" aria-selected="true">Semana</button>
+      <button role="tab" id="t-sesiones" aria-controls="p-sesiones" aria-selected="false">Sesiones</button>
+      <button role="tab" id="t-progresion" aria-controls="p-progresion" aria-selected="false">Progresión</button>
+      <button role="tab" id="t-rm" aria-controls="p-rm" aria-selected="false">RM</button>
+      <button role="tab" id="t-seguimiento" aria-controls="p-seguimiento" aria-selected="false">Seguimiento</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ================= SEMANA ================= -->
+<section id="p-semana" role="tabpanel" aria-labelledby="t-semana">
+  <p class="eyebrow" id="wk-eyebrow">Semana 1 de 12</p>
+  <h2>Tu semana</h2>
+  <p class="lead">Marca los cuatro días que vas a entrenar. Toca cualquier día para abrir la sesión y apuntar los pesos serie a serie.</p>
+
+  <div class="wknav">
+    <button type="button" id="wk-prev" aria-label="Semana anterior">‹</button>
+    <div class="mid"><b id="wk-title">Semana 1</b><span id="wk-dates">5 – 11 octubre</span></div>
+    <button type="button" id="wk-next" aria-label="Semana siguiente">›</button>
+  </div>
+
+  <div class="picker">
+    <div class="picker-h">
+      <p>Días de gimnasio</p>
+      <span class="count" id="wk-count">0 de 4</span>
+    </div>
+    <div class="dayopts" id="wk-days"></div>
+    <div class="picker-foot">
+      <button type="button" class="rot" id="wk-rot">Rotar sesiones ↻</button>
+      <span class="hint" id="wk-hint">Empieza la semana por la sesión A.</span>
+    </div>
+  </div>
+
+  <div id="wk-warn"></div>
+  <div id="wk-plan"></div>
+  <div id="wk-note"></div>
+
+  <h3>Cómo se reparten</h3>
+  <p>El ciclo es A → B → C → D y se reparte en los días que marques, en orden. Pierna va siempre en segunda posición y el día de hombro y brazo en última, lo más lejos posible del de empuje.</p>
+  <p>En una semana tipo queda: lunes empuje, miércoles pierna, viernes espalda, sábado hombro y brazo. La sentadilla cae con un día de descanso justo delante, que es donde mejor rinde.</p>
+  <p>Si una semana ya has hecho una sesión por tu cuenta, usa <strong>Rotar</strong> para que el reparto arranque por la que toca. Lo que importa no es qué días caen, sino que sean cuatro y que no se amontonen tres seguidos; el planificador te avisa.</p>
+
+  <h3>Reglas fijas</h3>
+  <ul class="plain">
+    <li><strong>Calentamiento, 8 min:</strong> 3-4 min de bici o movilidad, más 2 series de aproximación del primer ejercicio al 50 % y al 75 %. Va incluido en la duración de cada sesión.</li>
+    <li><strong>Descansos:</strong> 2-3 min en los dos primeros ejercicios, 60-90 s en accesorios. Las superseries van seguidas y descansas 90 s al cerrar el par.</li>
+    <li><strong>Si solo tienes 45 min:</strong> haz los tres primeros ejercicios. Nunca te saltes el primero.</li>
+    <li><strong>Apunta siempre:</strong> peso y repeticiones de cada serie. Sin registro no hay progresión medible.</li>
+  </ul>
+  <p class="note">RIR = repeticiones en recámara. RIR 3 significa que podrías hacer 3 repeticiones más antes del fallo. En los básicos nunca llegues al fallo; en accesorios y máquinas puedes llegar a RIR 0-1 en la última serie.</p>
+</section>
+
+<!-- ================= SESIONES ================= -->
+<section id="p-sesiones" role="tabpanel" aria-labelledby="t-sesiones" hidden>
+  <p class="eyebrow">3 torso · 1 pierna</p>
+  <h2>Las cuatro sesiones</h2>
+  <p class="lead">Una sesión de pierna que cubre toda la cadena, y tres de tren superior repartidas en empuje, tracción y un día de hombro y brazo. Series y rangos son los del bloque 1; la pestaña de progresión indica cómo cambian después.</p>
+
+  <div id="sessions"></div>
+
+  <h3>Duración y tiempo real</h3>
+  <p>Las estimaciones de cada ficha salen de contar el trabajo: unos 3 min por serie pesada con sus 2-3 min de descanso, 2 min por serie de accesorio y 2,5 min por ronda de superserie, más los 8 min de calentamiento. Ninguna llega a los 75 minutos que tienes de tope.</p>
+  <p>En los bloques 2 y 3 el primer ejercicio gana una serie o sube de peso: suma unos 5 minutos a la estimación. La sesión B es la más larga; si un día vas justo, quita la extensión de cuádriceps antes que nada.</p>
+
+  <h3>Qué cambia con un solo día de pierna</h3>
+  <p>La sesión B concentra en un día lo que antes iban dos, así que no se puede recortar por arriba: sentadilla y peso muerto rumano cubren rodilla y cadera, y los accesorios completan cuádriceps, isquios y gemelo.</p>
+  <p>Al perder frecuencia, la pierna avanza más despacio. Lo compensamos con intensidad: en la sentadilla y el rumano, lleva la última serie a RIR 1 desde el bloque 2 en lugar de esperar al 3.</p>
+
+  <h3>Orden de las sesiones y solapes</h3>
+  <p>El único solape real es entre C y D: bíceps en las dos. Si te caen en días seguidos, baja los curls del día D a dos series y mantén intactas las elevaciones laterales, que son el motivo de esa sesión.</p>
+
+  <h3>Rodilla</h3>
+  <p>La zancada búlgara está fuera: concentra mucha carga en una sola rodilla con el tronco inclinado y no compensa si te molesta. En su lugar va prensa, que carga el cuádriceps con la articulación mucho más estable. Pies a media altura de la plataforma y sin bloquear la rodilla arriba.</p>
+  <p>Si la sentadilla también te da guerra, dímelo y la cambiamos por goblet o hack squat antes del bloque 2. En la extensión de cuádriceps, si notas pinchazo, recorta el último tercio del recorrido en lugar de quitar el ejercicio.</p>
+
+  <h3>La espalda sigue siendo la prioridad</h3>
+  <p>En tus fotos el dorsal y el trapecio son el punto fuerte, y una espalda ancha estrecha visualmente la cintura. Por eso la sesión C lleva cuatro series en los tres remos y el face pull aparece también en la A.</p>
+  <p>El core va como antiextensión, no como abdominales clásicos: pallof press y dead bug. Añádeles respiración — exhala y hunde las costillas, sin aguantar con el abdomen sacado. Eso ataca la postura, que en tu perfil está sumando centímetros visuales.</p>
+</section>
+
+<!-- ================= PROGRESIÓN ================= -->
+<section id="p-progresion" role="tabpanel" aria-labelledby="t-progresion" hidden>
+  <p class="eyebrow">5 octubre – 27 diciembre</p>
+  <h2>Progresión por bloques</h2>
+  <p class="lead">Doble progresión: empiezas en la parte baja del rango, sumas 1-2 repeticiones cada semana con el mismo peso y, cuando llegas al tope del rango en todas las series, subes el peso (2,5-5 kg abajo, 1,25-2,5 kg arriba) y vuelves a empezar el rango.</p>
+
+  <div class="block-h"><span class="num">BLOQUE 1</span><h3>Acumulación</h3><span class="range">semanas 1-4</span></div>
+  <div class="wk" data-wk="1"><span class="lbl"><b>S1</b>5 oct</span><span class="txt">Pesos conservadores, RIR 3 en todo. Fijas tus referencias y las anotas.</span></div>
+  <div class="wk" data-wk="2"><span class="lbl"><b>S2</b>12 oct</span><span class="txt">Mismos pesos, 1-2 repeticiones más por serie. RIR 2-3.</span></div>
+  <div class="wk" data-wk="3"><span class="lbl"><b>S3</b>19 oct</span><span class="txt">Subes peso donde llegaste al tope del rango. RIR 2.</span></div>
+  <div class="wk deload" data-wk="4"><span class="lbl"><b>S4</b>26 oct</span><span class="txt"><strong>Descarga.</strong> Una serie menos por ejercicio y 85 % del peso. RIR 4.</span></div>
+
+  <div class="block-h"><span class="num">BLOQUE 2</span><h3>Intensificación</h3><span class="range">semanas 5-8</span></div>
+  <p>El ejercicio 1 de cada sesión pasa a <strong>5 series de 5-7 repeticiones</strong> con algo más de peso. En sentadilla y peso muerto rumano, la última serie va a RIR 1.</p>
+  <div class="wk" data-wk="5"><span class="lbl"><b>S5</b>2 nov</span><span class="txt">RIR 2 en básicos, RIR 1 en accesorios.</span></div>
+  <div class="wk" data-wk="6"><span class="lbl"><b>S6</b>9 nov</span><span class="txt">Más repeticiones o más peso. RIR 2.</span></div>
+  <div class="wk" data-wk="7"><span class="lbl"><b>S7</b>16 nov</span><span class="txt">RIR 1 en básicos. La semana más exigente del bloque.</span></div>
+  <div class="wk deload" data-wk="8"><span class="lbl"><b>S8</b>23 nov</span><span class="txt"><strong>Descarga.</strong> Mitad de series y 80 % del peso. RIR 4.</span></div>
+
+  <div class="block-h"><span class="num">BLOQUE 3</span><h3>Rendimiento</h3><span class="range">semanas 9-12</span></div>
+  <p>Aquí se preserva el músculo. Ejercicio 1 a <strong>4 series de 4-6</strong> con peso alto; ejercicio 2 a 3 × 6-8; accesorios en rangos de 10-15 para mantener volumen sin castigar articulaciones.</p>
+  <div class="wk" data-wk="9"><span class="lbl"><b>S9</b>30 nov</span><span class="txt">Adaptación al rango bajo. RIR 2-3.</span></div>
+  <div class="wk" data-wk="10"><span class="lbl"><b>S10</b>7 dic</span><span class="txt">Subes peso. RIR 2.</span></div>
+  <div class="wk" data-wk="11"><span class="lbl"><b>S11</b>14 dic</span><span class="txt">Semana pico. RIR 1 en básicos.</span></div>
+  <div class="wk deload" data-wk="12"><span class="lbl"><b>S12</b>21 dic</span><span class="txt"><strong>Descarga y test.</strong> Dos sesiones ligeras y, al final de semana, un 5RM en sentadilla y press banca para medir el progreso real.</span></div>
+
+  <p class="note">Las descargas no son opcionales en déficit calórico. Si llegas a la semana 6 o a la 10 con articulaciones doloridas, mal sueño o la fuerza cayendo dos sesiones seguidas, adelanta la descarga una semana. No pasa nada.</p>
+</section>
+
+<!-- ================= RM ================= -->
+<section id="p-rm" role="tabpanel" aria-labelledby="t-rm" hidden>
+  <p class="eyebrow">Calculado desde tu registro</p>
+  <h2>Progresión de fuerza</h2>
+  <p class="lead">Una gráfica por ejercicio con tu 1RM estimado semana a semana. Se calcula solo a partir de los pesos que apuntas: no hay nada que rellenar aquí.</p>
+
+  <div class="filters" id="rm-filters"></div>
+  <div id="rm-charts"></div>
+
+  <h3>Cómo se calcula</h3>
+  <p>De cada semana se toma tu <strong>mejor serie</strong> del ejercicio y se convierte a 1RM estimado con la fórmula de Epley: <code>peso × (1 + repeticiones ÷ 30)</code>. Un 60×8 y un 70×4 dan 76 kg y 79,3 kg: la fórmula permite comparar series que no son iguales, que es justo lo que necesitas cuando cambias de rango entre bloques.</p>
+  <p>Es una estimación, no un máximo real. Sirve para ver la tendencia, que es lo que importa; el número exacto solo lo sabrás en el test de la semana 12. Con más de 12 repeticiones pierde precisión, así que en accesorios de 15 tómatelo como orientativo.</p>
+  <p>Los ejercicios donde apuntas solo repeticiones, como las dominadas sin lastre, se grafican por repeticiones en lugar de por kilos. La gráfica lo indica en la esquina.</p>
+
+  <h3>Qué buscar</h3>
+  <p>Línea que sube, aunque sea despacio: el plan funciona. Línea plana dos o tres semanas seguidas en un básico: toca revisar descanso, sueño o comida antes de forzar más. Y las caídas en las semanas 4, 8 y 12 son las descargas, que están programadas; no son un retroceso.</p>
+  <p class="note">En déficit calórico, mantener la fuerza ya es un buen resultado. Si además sube, estás ganando músculo mientras pierdes grasa, que es exactamente el objetivo de estas 12 semanas.</p>
+</section>
+
+<!-- ================= SEGUIMIENTO ================= -->
+<section id="p-seguimiento" role="tabpanel" aria-labelledby="t-seguimiento" hidden>
+  <p class="eyebrow">Qué medir y cada cuánto</p>
+  <h2>Seguimiento</h2>
+  <p class="lead">En una recomposición la báscula miente por definición, porque mide dos cosas que se mueven en direcciones opuestas. Estas son las métricas que sí te van a contar la verdad.</p>
+
+  <div id="track-charts"></div>
+
+  <h3>Tus registros</h3>
+  <p>Peso en kilos, media de 3-4 mañanas de esa semana. Cintura en centímetros, a la altura del ombligo y en ayunas. La casilla de la derecha es para marcar que ya te hiciste las fotos.</p>
+  <div class="track">
+    <div class="track-h"><span>Semana</span><span>Peso kg</span><span>Cintura cm</span><span>Foto</span></div>
+    <div id="track-rows"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-h"><span class="tag">·</span><h4>Cintura a la altura del ombligo</h4><span class="when">1 vez por semana</span></div>
+    <div class="ex" style="grid-template-columns:1fr"><span class="name">En ayunas, mismo día, misma hora. Acumulas grasa en abdomen, flancos y lumbar baja, así que este número es tu mejor indicador.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-h"><span class="tag">·</span><h4>Peso corporal</h4><span class="when">3-4 mañanas por semana</span></div>
+    <div class="ex" style="grid-template-columns:1fr"><span class="name">Mira solo la media semanal, nunca el dato diario. Objetivo: 0,4-0,5 kg por semana.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-h"><span class="tag">·</span><h4>Fotos</h4><span class="when">Semanas 4, 8 y 12</span></div>
+    <div class="ex" style="grid-template-columns:1fr"><span class="name">Frontal, lateral y espalda. Misma luz, misma hora, en ayunas. Nada más.</span></div>
+    <div class="ex" style="grid-template-columns:1fr"><span class="name">Entre medias no te hagas más. En nueve horas no se mueve la grasa: solo verías ruido de digestión y agua.</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-h"><span class="tag">·</span><h4>Pesos del registro</h4><span class="when">Cada sesión</span></div>
+    <div class="ex" style="grid-template-columns:1fr"><span class="name">Si en la semana 12 mantienes o subes la fuerza mientras baja la cintura, el bloque ha funcionado, diga lo que diga la báscula.</span></div>
+  </div>
+
+  <h3>Resultado realista a 12 semanas</h3>
+  <p>Perderías 5-6 kg de grasa, pero la báscula marcará menos — probablemente 3-4 kg — porque habrás ganado algo de músculo por el camino. Terminarías cerca de los 81-82 kg con bastante menos cintura y más fuerza que hoy.</p>
+  <p>Y algo que conviene saber de antemano: el abdomen será la última zona en responder. Vas a notar cambios en la cara, los brazos y el pecho mucho antes de ver nada en la barriga. Es justo el punto donde la gente abandona pensando que no funciona.</p>
+
+  <h3>Cardio y actividad</h3>
+  <ul class="plain">
+    <li><strong>8.000-10.000 pasos diarios.</strong> Pesan más que el cardio programado y no restan recuperación.</li>
+    <li><strong>Dos días sueltos:</strong> 30-50 min de caminata rápida, bici suave o elíptica. Deberías poder mantener una conversación.</li>
+    <li><strong>Desde la semana 5</strong>, si el ritmo se estanca: 8-10 min al final de los días de torso, intervalos de 30 s fuertes y 90 s suaves. Máximo dos por semana.</li>
+  </ul>
+  <p class="note">Esto es una propuesta de estructura de entrenamiento, no una prescripción médica. Si aparece alguna molestia o vuelven los mareos, se para y se mira antes de seguir subiendo carga.</p>
+</section>
+
+</div>
+
+<script>
+/* ================= programa ================= */
+var SESSIONS = [
+  { id:'A', title:'Torso empuje', sub:'pecho · hombro anterior · tríceps', mins:'55-60 min', ex:[
+    { n:'Press banca con barra',                sets:4, reps:'6-8',   rir:'RIR 2-3' },
+    { n:'Press inclinado con mancuernas',       sets:3, reps:'8-10',  rir:'RIR 2' },
+    { n:'Press militar con mancuernas',         d:'sentado', sets:3, reps:'8-10', rir:'RIR 2' },
+    { n:'Aperturas en polea',                   d:'o pec deck', sets:3, reps:'12-15', rir:'RIR 1' },
+    { n:'Extensión de tríceps en polea',        sets:3, reps:'10-12', rir:'SS', ss:1 },
+    { n:'Elevaciones laterales',                sets:3, reps:'12-15', rir:'SS', ss:1 },
+    { n:'Face pull',                            sets:2, reps:'15-20', rir:'RIR 2' }
+  ]},
+  { id:'B', title:'Tren inferior completo', sub:'única sesión de pierna', mins:'60-65 min', ex:[
+    { n:'Sentadilla trasera con barra',         sets:4, reps:'6-8',   rir:'RIR 2-3' },
+    { n:'Peso muerto rumano con barra',         sets:4, reps:'8-10',  rir:'RIR 2' },
+    { n:'Prensa 45°',                           d:'pies a media altura, sin bloquear rodilla', sets:3, reps:'10-12', rir:'RIR 2' },
+    { n:'Curl femoral tumbado',                 sets:3, reps:'10-12', rir:'RIR 1' },
+    { n:'Extensión de cuádriceps',              sets:3, reps:'12-15', rir:'SS', ss:1 },
+    { n:'Elevación de gemelos',                 sets:3, reps:'12-15', rir:'SS', ss:1 },
+    { n:'Pallof press',                         d:'o dead bug · por lado', sets:3, reps:'10-12', rir:'core' }
+  ]},
+  { id:'C', title:'Torso tracción', sub:'espalda · bíceps', mins:'60 min', ex:[
+    { n:'Dominadas',                            d:'lastradas si haces más de 10', sets:4, reps:'6-10', rir:'RIR 2' },
+    { n:'Remo con mancuerna a una mano',        d:'por lado', sets:4, reps:'8-10', rir:'RIR 2' },
+    { n:'Remo en polea baja',                   d:'agarre neutro', sets:4, reps:'12', rir:'RIR 1-2' },
+    { n:'Pullover en polea alta',               sets:3, reps:'12-15', rir:'RIR 1' },
+    { n:'Curl de bíceps con barra Z',           sets:3, reps:'8-10',  rir:'RIR 1' },
+    { n:'Face pull',                            sets:2, reps:'15-20', rir:'RIR 2' }
+  ]},
+  { id:'D', title:'Hombro y brazo', sub:'deltoides lateral y posterior · brazo', mins:'55-60 min', ex:[
+    { n:'Press de hombro en máquina',           sets:3, reps:'10-12', rir:'RIR 2' },
+    { n:'Elevaciones laterales',                d:'el ejercicio clave del día', sets:4, reps:'12-15', rir:'RIR 0-1' },
+    { n:'Pájaros en polea cruzada',             d:'o pec deck invertido', sets:3, reps:'15', rir:'RIR 1' },
+    { n:'Curl inclinado con mancuernas',        sets:3, reps:'10-12', rir:'SS', ss:1 },
+    { n:'Extensión de tríceps sobre la cabeza', sets:3, reps:'10-12', rir:'SS', ss:1 },
+    { n:'Curl martillo',                        sets:3, reps:'12',    rir:'SS', ss:2 },
+    { n:'Pushdown en polea',                    sets:3, reps:'12',    rir:'SS', ss:2 },
+    { n:'Encogimientos',                        d:'o antebrazo', sets:2, reps:'15', rir:'RIR 1' }
+  ]}
+];
+
+var START  = new Date(2026, 9, 5);          // lunes 5 de octubre de 2026
+var DAYS   = ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'];
+var MONTH  = ['enero','febrero','marzo','abril','mayo','junio','julio',
+              'agosto','septiembre','octubre','noviembre','diciembre'];
+var DELOAD = [4, 8, 12];
+var NOTES  = {
+  1:'Pesos conservadores y RIR 3 en todo. Esta semana sirve para fijar referencias y anotarlas.',
+  2:'Mismos pesos, 1-2 repeticiones más por serie.',
+  3:'Sube peso donde llegaste al tope del rango.',
+  4:'Descarga: una serie menos por ejercicio y 85 % del peso.',
+  5:'Empieza el bloque 2: el ejercicio 1 pasa a 5 series de 5-7.',
+  6:'Más repeticiones o más peso, RIR 2.',
+  7:'RIR 1 en básicos. La semana más exigente del bloque.',
+  8:'Descarga: mitad de series y 80 % del peso.',
+  9:'Empieza el bloque 3: ejercicio 1 a 4 series de 4-6 con peso alto.',
+  10:'Sube peso, RIR 2.',
+  11:'Semana pico, RIR 1 en básicos.',
+  12:'Descarga y test: el 5RM de sentadilla y press banca cierran el programa.'
+};
+var KEY = 'plan12.v2';
+
+/* ================= almacenamiento ================= */
+var APP = { weeks:{}, log:{}, track:{}, photos:{} };
+try {
+  var raw = JSON.parse(localStorage.getItem(KEY) || 'null');
+  if (raw && typeof raw === 'object') {
+    APP.weeks  = raw.weeks  || {};
+    APP.log    = raw.log    || {};
+    APP.track  = raw.track  || {};
+    APP.photos = raw.photos || {};
+  }
+} catch (e) {}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(APP)); } catch (e) {} }
+
+/* ================= fechas y formato ================= */
+function weekNow(){
+  var t = new Date(); t.setHours(0,0,0,0);
+  return Math.min(12, Math.max(1, Math.floor((t - START) / 604800000) + 1));
+}
+function mondayOf(w){ var d = new Date(START); d.setDate(d.getDate() + (w-1)*7); return d; }
+function range(w){
+  var a = mondayOf(w), b = new Date(a); b.setDate(b.getDate()+6);
+  var am = MONTH[a.getMonth()], bm = MONTH[b.getMonth()];
+  return a.getDate() + (am === bm ? '' : ' ' + am) + ' – ' + b.getDate() + ' ' + bm;
+}
+function dateOf(w, i){ var d = mondayOf(w); d.setDate(d.getDate()+i); return d.getDate(); }
+function fmt(v){
+  var r = Math.round(v * 10) / 10;
+  return (r % 1 === 0 ? String(r) : r.toFixed(1).replace('.', ','));
+}
+
+/* ================= parseo de series y 1RM ================= */
+// Acepta 60x8, 60×8, 60 x 8, 60kg x 8, 72,5x6, +10x6 (lastre), 60kg, y un número suelto
+function parseSet(txt){
+  var s = (txt || '').toLowerCase().replace(/\s+/g, '').replace(/,/g, '.');
+  if (!s) return null;
+  var m = s.match(/^\+?(\d+(?:\.\d+)?)(?:kg|k)?[x×*](\d+)$/);
+  if (m){
+    var w = parseFloat(m[1]), r = parseInt(m[2], 10);
+    return r > 0 ? { w: w, r: r } : null;
+  }
+  var k = s.match(/^\+?(\d+(?:\.\d+)?)(?:kg|k)$/);
+  if (k) return parseFloat(k[1]) > 0 ? { w: parseFloat(k[1]), r: null } : null;
+  // número suelto: por debajo de 30 se entiende como repeticiones, por encima como kilos
+  var n = s.match(/^(\d+(?:\.\d+)?)$/);
+  if (n){
+    var v = parseFloat(n[1]);
+    if (v <= 0) return null;
+    return v < 30 ? { w: null, r: Math.round(v) } : { w: v, r: null };
+  }
+  return null;
+}
+// Epley
+function e1rm(w, r){ return r && r > 1 ? w * (1 + r / 30) : w; }
+
+/* ================= gráfica de líneas ================= */
+var W = 320, H = 134, PL = 38, PR = 14, PT = 12, PB = 22;
+var IW = W - PL - PR, IH = H - PT - PB;
+
+function lineChart(pts, opt){
+  if (!pts.length) return '';
+  var color = opt.color, unit = opt.unit;
+  var vals = pts.map(function(p){ return p.v; });
+  var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+  if (hi - lo < 0.001){ lo -= Math.max(1, Math.abs(lo) * 0.04); hi += Math.max(1, Math.abs(hi) * 0.04); }
+  else { var pad = (hi - lo) * 0.18; lo -= pad; hi += pad; }
+
+  function X(w){ return PL + (w - 1) / 11 * IW; }
+  function Y(v){ return PT + (1 - (v - lo) / (hi - lo)) * IH; }
+
+  var g = '';
+
+  // rejilla
+  [0, 0.5, 1].forEach(function(t){
+    var v = lo + (hi - lo) * t, y = Y(v);
+    g += '<line x1="' + PL + '" y1="' + y.toFixed(1) + '" x2="' + (PL + IW) + '" y2="' + y.toFixed(1) +
+         '" stroke="var(--line)" stroke-width="1"/>' +
+         '<text x="' + (PL - 7) + '" y="' + (y + 3.5).toFixed(1) + '" text-anchor="end" ' +
+         'font-family="var(--data)" font-size="9.5" fill="var(--muted)">' + fmt(v) + '</text>';
+  });
+
+  // semanas de descarga
+  DELOAD.forEach(function(w){
+    g += '<line x1="' + X(w).toFixed(1) + '" y1="' + PT + '" x2="' + X(w).toFixed(1) + '" y2="' + (PT + IH) +
+         '" stroke="var(--raise)" stroke-width="1" stroke-dasharray="2 3"/>';
+  });
+
+  // eje x
+  [1, 4, 8, 12].forEach(function(w){
+    g += '<text x="' + X(w).toFixed(1) + '" y="' + (H - 6) + '" text-anchor="middle" ' +
+         'font-family="var(--data)" font-size="9.5" fill="var(--muted)">S' + w + '</text>';
+  });
+
+  var d = pts.map(function(p, i){ return (i ? 'L' : 'M') + X(p.w).toFixed(1) + ' ' + Y(p.v).toFixed(1); }).join(' ');
+
+  if (pts.length > 1){
+    g += '<path d="' + d + ' L' + X(pts[pts.length-1].w).toFixed(1) + ' ' + (PT + IH) +
+         ' L' + X(pts[0].w).toFixed(1) + ' ' + (PT + IH) + ' Z" fill="' + color + '" opacity="0.10"/>';
+    g += '<path d="' + d + '" fill="none" stroke="' + color + '" stroke-width="2" ' +
+         'stroke-linecap="round" stroke-linejoin="round"/>';
+  }
+
+  pts.forEach(function(p, i){
+    var last = i === pts.length - 1;
+    g += '<circle cx="' + X(p.w).toFixed(1) + '" cy="' + Y(p.v).toFixed(1) + '" r="' + (last ? 5 : 4) +
+         '" fill="' + (last ? color : 'var(--surface)') + '" stroke="' + (last ? 'var(--surface)' : color) +
+         '" stroke-width="2"/>';
+  });
+
+  // etiqueta directa solo en el último punto
+  var L = pts[pts.length-1], lx = X(L.w), anchor = 'middle', dx = 0;
+  if (lx > PL + IW - 28){ anchor = 'end'; dx = 6; }
+  if (lx < PL + 28){ anchor = 'start'; dx = -6; }
+  g += '<text x="' + (lx + dx).toFixed(1) + '" y="' + (Y(L.v) - 11).toFixed(1) + '" text-anchor="' + anchor +
+       '" font-family="var(--data)" font-size="11" font-weight="600" fill="var(--ink)">' + fmt(L.v) + '</text>';
+
+  // zonas de interacción
+  pts.forEach(function(p){
+    g += '<circle class="hit" cx="' + X(p.w).toFixed(1) + '" cy="' + Y(p.v).toFixed(1) +
+         '" r="12" fill="transparent" data-tip="Semana ' + p.w + ' · ' + fmt(p.v) + ' ' + unit + '"/>';
+  });
+
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + opt.label + '">' + g + '</svg>';
+}
+
+/* ================= serie por ejercicio ================= */
+function exerciseSeries(){
+  var out = [];
+  SESSIONS.forEach(function(s){
+    s.ex.forEach(function(e, ei){
+      var kg = [], rp = [], nKg = 0, nRp = 0;
+      for (var w = 1; w <= 12; w++){
+        var l = APP.log[w + '-' + s.id];
+        if (!l) continue;
+        var bk = null, br = null;
+        for (var si = 0; si < e.sets; si++){
+          var p = parseSet(l[ei + ':' + si]);
+          if (!p) continue;
+          if (p.w != null){ nKg++; var v = e1rm(p.w, p.r); if (bk == null || v > bk) bk = v; }
+          else if (p.r != null){ nRp++; if (br == null || p.r > br) br = p.r; }
+        }
+        if (bk != null) kg.push({ w: w, v: bk });
+        if (br != null) rp.push({ w: w, v: br });
+      }
+      var useKg = nKg >= nRp && kg.length > 0;
+      var pts = useKg ? kg : rp;
+      if (!pts.length) return;
+      out.push({
+        sid: s.id, name: e.n, pts: pts,
+        unit: useKg ? 'kg' : 'reps',
+        kind: useKg ? '1RM estimado' : 'mejores reps'
+      });
+    });
+  });
+  return out;
+}
+
+/* ================= tarjeta de gráfica ================= */
+function chartCard(o){
+  var pts = o.pts, last = pts[pts.length-1].v, first = pts[0].v;
+  var diff = last - first;
+  // en fuerza sube = bien; en peso y cintura baja = bien
+  var good = o.lowerIsBetter ? diff < 0 : diff > 0;
+  var cls = Math.abs(diff) < 0.05 ? 'flat' : (good ? 'up' : 'down');
+  var sign = diff > 0 ? '+' : (diff < 0 ? '−' : '');
+  var deltaTxt = pts.length > 1
+    ? sign + fmt(Math.abs(diff)) + ' ' + o.unit + ' desde S' + pts[0].w
+    : 'primer registro';
+
+  var rows = pts.map(function(p){ return 'S' + p.w + ' <b>' + fmt(p.v) + '</b>'; }).join('');
+
+  return '<div class="chart-card">' +
+    '<div class="chart-h"><span class="cn">' + o.name + '</span>' +
+    '<span class="cs">' + (o.sid ? o.sid + ' · ' : '') + o.kind + '</span></div>' +
+    '<div class="chart-now"><span class="big">' + fmt(last) + '</span><span class="u">' + o.unit + '</span>' +
+    '<span class="delta ' + cls + '">' + deltaTxt + '</span></div>' +
+    lineChart(pts, { color: o.unit === 'kg' ? 'var(--accent)' : 'var(--steel)', unit: o.unit,
+                     label: o.kind + ' de ' + o.name }) +
+    '<div class="datarow">' + rows + '</div>' +
+  '</div>';
+}
+
+/* ================= pestañas ================= */
+var showTab;
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('nav [role="tab"]'));
+  showTab = function(id){
+    tabs.forEach(function(t){
+      var sel = t.id === id;
+      t.setAttribute('aria-selected', sel ? 'true' : 'false');
+      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      if (panel) panel.hidden = !sel;
+    });
+    if (id === 't-rm') renderRM();
+    if (id === 't-seguimiento') renderTrackCharts();
+    window.scrollTo(0, 0);
+  };
+  tabs.forEach(function(t){
+    t.addEventListener('click', function(){ showTab(t.id); });
+    t.addEventListener('keydown', function(e){
+      var i = tabs.indexOf(t), n = null;
+      if (e.key === 'ArrowRight') n = tabs[(i+1) % tabs.length];
+      if (e.key === 'ArrowLeft')  n = tabs[(i-1+tabs.length) % tabs.length];
+      if (n) { e.preventDefault(); n.focus(); showTab(n.id); }
+    });
+  });
+})();
+
+/* ================= fichas de sesión ================= */
+(function(){
+  var host = document.getElementById('sessions');
+  SESSIONS.forEach(function(s){
+    var c = document.createElement('div');
+    c.className = 'card';
+    var rows = s.ex.map(function(e){
+      return '<div class="ex' + (e.ss ? ' ss' : '') + '">' +
+             '<span class="name">' + e.n + (e.d ? '<em>' + e.d + '</em>' : '') + '</span>' +
+             '<span class="sets">' + e.sets + ' × ' + e.reps + '</span>' +
+             '<span class="rir">' + e.rir + '</span></div>';
+    }).join('');
+    var total = s.ex.reduce(function(a, e){ return a + e.sets; }, 0);
+    c.innerHTML =
+      '<div class="card-h"><span class="tag">' + s.id + '</span><h4>' + s.title + '</h4>' +
+      '<span class="dur">' + s.mins + '</span></div>' +
+      '<div class="col-h"><span>' + s.sub + '</span><span>Series × reps</span><span>Intensidad</span></div>' +
+      rows +
+      '<div class="col-h" style="border-bottom:0;border-top:1px solid var(--line)">' +
+      '<span>' + s.ex.length + ' ejercicios</span><span>' + total + ' series</span><span></span></div>';
+    host.appendChild(c);
+  });
+})();
+
+/* ================= pestaña RM ================= */
+var rmFilter = 'all';
+function renderRM(){
+  var host = document.getElementById('rm-charts');
+  var fh   = document.getElementById('rm-filters');
+  var all  = exerciseSeries();
+
+  if (!fh.childElementCount){
+    var opts = [['all','Todas']].concat(SESSIONS.map(function(s){ return [s.id, s.id + ' · ' + s.title]; }));
+    fh.innerHTML = opts.map(function(o){
+      return '<button type="button" class="chip" data-f="' + o[0] + '" aria-pressed="' +
+             (o[0] === rmFilter) + '">' + o[1] + '</button>';
+    }).join('');
+    fh.addEventListener('click', function(e){
+      var b = e.target.closest('.chip'); if (!b) return;
+      rmFilter = b.dataset.f;
+      Array.prototype.forEach.call(fh.children, function(c){
+        c.setAttribute('aria-pressed', c.dataset.f === rmFilter ? 'true' : 'false');
+      });
+      renderRM();
+    });
+  }
+
+  if (!all.length){
+    fh.hidden = true;
+    host.innerHTML = '<div class="plan-empty">Todavía no hay registros.<br>' +
+      'Apunta los pesos en la pestaña <strong>Semana</strong> y las gráficas aparecerán aquí solas.</div>';
+    return;
+  }
+  fh.hidden = false;
+
+  var list = all.filter(function(o){ return rmFilter === 'all' || o.sid === rmFilter; });
+  if (!list.length){
+    host.innerHTML = '<div class="plan-empty">Ningún ejercicio registrado todavía en esta sesión.</div>';
+    return;
+  }
+  host.innerHTML = '<div class="charts">' + list.map(chartCard).join('') + '</div>';
+}
+
+/* ================= seguimiento ================= */
+function trackPts(field){
+  var pts = [];
+  for (var w = 1; w <= 12; w++){
+    var t = APP.track[w];
+    if (!t) continue;
+    var v = parseFloat(String(t[field] || '').replace(',', '.'));
+    if (!isNaN(v) && v > 0) pts.push({ w: w, v: v });
+  }
+  return pts;
+}
+
+function renderTrackCharts(){
+  var host = document.getElementById('track-charts');
+  var p = trackPts('peso'), c = trackPts('cintura');
+  if (!p.length && !c.length){
+    host.innerHTML = '<div class="plan-empty">Apunta tu peso y tu cintura abajo y verás aquí las dos curvas.</div>';
+    return;
+  }
+  var cards = '';
+  if (p.length) cards += chartCard({ sid:'', name:'Peso corporal', pts:p, unit:'kg',
+                                     kind:'media semanal', lowerIsBetter:true });
+  if (c.length) cards += chartCard({ sid:'', name:'Cintura', pts:c, unit:'cm',
+                                     kind:'en el ombligo', lowerIsBetter:true });
+  host.innerHTML = '<div class="charts">' + cards + '</div>';
+}
+
+function renderTrackRows(){
+  var host = document.getElementById('track-rows'), now = weekNow(), html = '';
+  for (var w = 1; w <= 12; w++){
+    var t = APP.track[w] || {};
+    var dl = DELOAD.indexOf(w) > -1;
+    var photo = w === 4 || w === 8 || w === 12;
+    html += '<div class="track-r' + (dl ? ' deload' : '') + (w === now ? ' now' : '') + '">' +
+      '<span class="w">S' + w + '</span>' +
+      '<input type="text" inputmode="decimal" autocomplete="off" id="tk-p-' + w + '" aria-label="Peso semana ' + w +
+      '" placeholder="85" value="' + (t.peso || '').replace(/"/g, '&quot;') + '" data-w="' + w + '" data-f="peso">' +
+      '<input type="text" inputmode="decimal" autocomplete="off" id="tk-c-' + w + '" aria-label="Cintura semana ' + w +
+      '" placeholder="92" value="' + (t.cintura || '').replace(/"/g, '&quot;') + '" data-w="' + w + '" data-f="cintura">' +
+      '<span class="photo">' + (photo
+        ? '<input type="checkbox" id="tk-f-' + w + '" aria-label="Fotos semana ' + w + '" data-photo="' + w + '"' +
+          (APP.photos[w] ? ' checked' : '') + '>'
+        : '<span>–</span>') + '</span>' +
+    '</div>';
+  }
+  host.innerHTML = html;
+}
+
+document.getElementById('track-rows').addEventListener('input', function(e){
+  var i = e.target;
+  if (!i.dataset || !i.dataset.f) return;
+  if (!APP.track[i.dataset.w]) APP.track[i.dataset.w] = {};
+  APP.track[i.dataset.w][i.dataset.f] = i.value;
+  save(); renderTrackCharts();
+});
+document.getElementById('track-rows').addEventListener('change', function(e){
+  var i = e.target;
+  if (!i.dataset || !i.dataset.photo) return;
+  APP.photos[i.dataset.photo] = i.checked;
+  save();
+});
+
+/* ================= semana, planificador y registro ================= */
+(function(){
+  if (!APP.weeks['1']) APP.weeks['1'] = { days:[0,3,4,6], start:0 };
+  function cfg(w){
+    var k = String(w);
+    if (!APP.weeks[k]) APP.weeks[k] = { days:[0,2,4,5], start:0 };
+    return APP.weeks[k];
+  }
+  function logKey(w, sid){ return w + '-' + sid; }
+  function getLog(w, sid){
+    var k = logKey(w, sid);
+    if (!APP.log[k]) APP.log[k] = {};
+    return APP.log[k];
+  }
+  function filled(w, sid){
+    var l = APP.log[logKey(w, sid)]; if (!l) return 0;
+    return Object.keys(l).filter(function(k){ return (l[k] || '').trim(); }).length;
+  }
+  function lastTime(w, sid, ei, total){
+    for (var p = w - 1; p >= 1; p--){
+      var l = APP.log[logKey(p, sid)]; if (!l) continue;
+      var vals = [];
+      for (var s = 0; s < total; s++){
+        var v = (l[ei + ':' + s] || '').trim();
+        if (v) vals.push(v);
+      }
+      if (vals.length) return 'S' + p + ': ' + vals.join(' · ');
+    }
+    return '';
+  }
+
+  var view = weekNow(), open = {};
+  var elDays  = document.getElementById('wk-days');
+  var elCount = document.getElementById('wk-count');
+  var elPlan  = document.getElementById('wk-plan');
+  var elWarn  = document.getElementById('wk-warn');
+  var elNote  = document.getElementById('wk-note');
+  var elHint  = document.getElementById('wk-hint');
+
+  for (var i = 0; i < 7; i++){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'opt'; b.dataset.i = i;
+    b.innerHTML = '<span>' + DAYS[i] + '</span><span class="pick">·</span>';
+    elDays.appendChild(b);
+  }
+
+  function warnings(days){
+    var out = [];
+    for (var i = 0; i + 2 < days.length; i++){
+      if (days[i+1] === days[i]+1 && days[i+2] === days[i]+2){
+        out.push('Tres días seguidos (' + DAYS[days[i]] + ', ' + DAYS[days[i]+1] + ' y ' + DAYS[days[i]+2] +
+                 '). La tercera sesión llega con fatiga acumulada. Si puedes, separa una.');
+        break;
+      }
+    }
+    if (days.length === 4 && days[3] - days[0] <= 3){
+      out.push('Las cuatro sesiones caben en cuatro días y te quedan tres seguidos de descanso. Funciona, pero rinde menos que repartirlas.');
+    }
+    return out;
+  }
+
+  function buildLog(w, s){
+    var log = getLog(w, s.id);
+    var html = '<div class="log">';
+    s.ex.forEach(function(e, ei){
+      var prev = lastTime(w, s.id, ei, e.sets);
+      html += '<div class="log-ex">' +
+              '<div class="log-top"><span class="nm">' + (ei+1) + '. ' + e.n + '</span>' +
+              '<span class="goal">' + e.sets + ' × ' + e.reps + ' · ' + e.rir + '</span></div>' +
+              (prev ? '<p class="prev">Última vez — ' + prev + '</p>' : '');
+      html += '<div class="sets-grid">';
+      for (var si = 0; si < e.sets; si++){
+        var id = 'log-' + w + '-' + s.id + '-' + ei + '-' + si;
+        var val = (log[ei + ':' + si] || '').replace(/"/g, '&quot;');
+        html += '<div class="set-in"><label for="' + id + '">Serie ' + (si+1) + '</label>' +
+                '<input id="' + id + '" type="text" inputmode="text" autocomplete="off" ' +
+                'placeholder="60×8" value="' + val + '" ' +
+                'data-w="' + w + '" data-s="' + s.id + '" data-k="' + ei + ':' + si + '"></div>';
+      }
+      html += '</div></div>';
+    });
+    html += '<p class="log-foot">Apunta peso y repeticiones: <strong>60×8</strong>. Con ese formato la pestaña RM calcula tu progresión sola.</p>';
+    return html + '</div>';
+  }
+
+  function render(){
+    var c = cfg(view), days = c.days.slice().sort(function(a,b){ return a-b; });
+
+    document.getElementById('wk-title').textContent = 'Semana ' + view;
+    document.getElementById('wk-dates').textContent = range(view);
+    document.getElementById('wk-eyebrow').textContent =
+      'Semana ' + view + ' de 12' + (view === weekNow() ? ' · en curso' : '');
+    document.getElementById('wk-prev').disabled = view <= 1;
+    document.getElementById('wk-next').disabled = view >= 12;
+
+    Array.prototype.forEach.call(elDays.children, function(b, i){
+      var on = days.indexOf(i) > -1;
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.querySelector('.pick').textContent = on ? SESSIONS[(c.start + days.indexOf(i)) % 4].id : '·';
+    });
+
+    elCount.textContent = days.length + ' de 4';
+    elCount.className = 'count' + (days.length === 4 ? ' done' : '');
+    elHint.textContent = 'Empieza la semana por la sesión ' + SESSIONS[c.start % 4].id + '.';
+
+    elPlan.innerHTML = '';
+    if (!days.length){
+      elPlan.innerHTML = '<div class="plan-empty">Marca arriba los días que vas a entrenar.</div>';
+    } else {
+      days.forEach(function(d, idx){
+        var s = SESSIONS[(c.start + idx) % 4];
+        var total = s.ex.reduce(function(a, e){ return a + e.sets; }, 0);
+        var done = filled(view, s.id);
+        var isOpen = !!open[view + '-' + s.id];
+        var card = document.createElement('div');
+        card.className = 'day-card' + (isOpen ? ' open' : '');
+        card.innerHTML =
+          '<button type="button" class="day-h" aria-expanded="' + isOpen + '" data-sid="' + s.id + '">' +
+            '<span class="pd">' + DAYS[d] + ' ' + dateOf(view, d) + '</span>' +
+            '<span class="ps">' + s.id + '</span>' +
+            '<span class="pn">' + s.title + '<em>' + s.sub + '</em></span>' +
+            '<span class="meta">' + s.mins + '<b>' + (done ? done + '/' + total + ' series' : total + ' series') + '</b></span>' +
+          '</button>' +
+          (isOpen ? buildLog(view, s) : '');
+        elPlan.appendChild(card);
+      });
+    }
+
+    elWarn.innerHTML = '';
+    if (days.length < 4){
+      elWarn.innerHTML = '<div class="warn">Te faltan ' + (4 - days.length) +
+        (4 - days.length === 1 ? ' día' : ' días') + ' por marcar esta semana.</div>';
+    } else {
+      warnings(days).forEach(function(w){
+        var d = document.createElement('div'); d.className = 'warn'; d.textContent = w;
+        elWarn.appendChild(d);
+      });
+    }
+
+    elNote.innerHTML = NOTES[view]
+      ? '<div class="now"><p><strong>Semana ' + view + '.</strong> ' + NOTES[view] + '</p></div>' : '';
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-wk]'), function(r){
+      r.classList.toggle('current', Number(r.dataset.wk) === view);
+    });
+  }
+
+  elDays.addEventListener('click', function(e){
+    var b = e.target.closest('.opt'); if (!b) return;
+    var i = Number(b.dataset.i), c = cfg(view), at = c.days.indexOf(i);
+    if (at > -1) c.days.splice(at, 1);
+    else if (c.days.length >= 4){
+      elWarn.innerHTML = '<div class="warn">Ya tienes cuatro días marcados. Quita uno para cambiarlo.</div>';
+      return;
+    } else c.days.push(i);
+    save(); render();
+  });
+
+  elPlan.addEventListener('click', function(e){
+    var h = e.target.closest('.day-h'); if (!h) return;
+    var k = view + '-' + h.dataset.sid;
+    open[k] = !open[k];
+    render();
+  });
+
+  elPlan.addEventListener('input', function(e){
+    var inp = e.target; if (!inp.dataset || !inp.dataset.k) return;
+    getLog(Number(inp.dataset.w), inp.dataset.s)[inp.dataset.k] = inp.value;
+    save();
+  });
+
+  document.getElementById('wk-rot').addEventListener('click', function(){
+    var c = cfg(view); c.start = (c.start + 1) % 4; save(); render();
+  });
+  document.getElementById('wk-prev').addEventListener('click', function(){ if (view > 1){ view--; render(); } });
+  document.getElementById('wk-next').addEventListener('click', function(){ if (view < 12){ view++; render(); } });
+
+  render();
+})();
+
+/* ================= tooltip de las gráficas ================= */
+(function(){
+  var tip = document.createElement('div');
+  tip.id = 'tip'; tip.setAttribute('role', 'status');
+  document.body.appendChild(tip);
+  function show(e){
+    var h = e.target.closest ? e.target.closest('.hit') : null;
+    if (!h){ tip.classList.remove('on'); return; }
+    var r = h.getBoundingClientRect();
+    tip.textContent = h.dataset.tip;
+    tip.style.left = (r.left + r.width / 2) + 'px';
+    tip.style.top  = r.top + 'px';
+    tip.classList.add('on');
+  }
+  document.addEventListener('mouseover', show);
+  document.addEventListener('mouseout', function(e){
+    if (e.target.closest && e.target.closest('.hit')) tip.classList.remove('on');
+  });
+  document.addEventListener('click', show);
+  window.addEventListener('scroll', function(){ tip.classList.remove('on'); }, true);
+})();
+
+renderTrackRows();
+renderTrackCharts();
+renderRM();
+</script>
